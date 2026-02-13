@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KWP Gdańsk — wykroczenia, przestępstwa i podstawy prawne</title>
+  <meta name="description" content="Summer RP| Ściąga: wykroczenia i przestępstwa wraz z podstawą prawną i sankcjami + opis wybranych przepisów (KPK i ustawa o Policji)." />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1a2e;
+      --muted:#9fb0d0;
+      --text:#e9f0ff;
+      --accent:#4da3ff;
+      --accent2:#7cdbb6;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --chip: rgba(77,163,255,.14);
+      --danger:#ff6b6b;
+      --ok:#7cdbb6;
+    }
+    [data-theme="light"]{
+      --bg:#f6f8ff;
+      --card:#ffffff;
+      --muted:#51627e;
+      --text:#0b1220;
+      --accent:#1d6cff;
+      --accent2:#0da37f;
+      --border:rgba(11,18,32,.12);
+      --shadow: 0 10px 30px rgba(11,18,32,.10);
+      --chip: rgba(29,108,255,.10);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(77,163,255,.20), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(124,219,182,.16), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 16px 40px}
+    header{
+      display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+    .title{display:flex;flex-direction:column;gap:6px;min-width:min(720px,100%)}
+    h1{margin:0;font-size: clamp(22px, 2.3vw, 30px);letter-spacing:.2px;}
+    .sub{color:var(--muted);font-size:14px;max-width: 72ch;}
+    .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+    .btn{
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      color:var(--text);
+      padding:10px 12px;border-radius:12px;cursor:pointer;
+      box-shadow: var(--shadow);
+      transition: transform .05s ease, border-color .2s ease, background .2s ease;
+      font-weight:600;font-size:13px;display:inline-flex;gap:8px;align-items:center;user-select:none;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn.secondary{box-shadow:none;background:transparent}
+    .btn:hover{border-color: rgba(255,255,255,.22)}
+    [data-theme="light"] .btn:hover{border-color: rgba(11,18,32,.22)}
+    .btn .dot{width:9px;height:9px;border-radius:99px;background:var(--accent);box-shadow:0 0 0 4px rgba(77,163,255,.18);}
+
+    .panel{
+      background: rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:14px;
+      box-shadow: var(--shadow);
+      margin-bottom:14px;
+    }
+    [data-theme="light"] .panel{background: rgba(11,18,32,.02)}
+
+    .filters{display:grid;grid-template-columns: 1.5fr 1fr 1fr;gap:10px;}
+    @media (max-width:900px){
+      .filters{grid-template-columns:1fr}
+      .toolbar{justify-content:flex-start}
+      .title{min-width:100%}
+    }
+
+    .input, select{
+      width:100%;
+      padding:12px 12px;border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.12);
+      color:var(--text);
+      outline:none;
+      transition:border-color .2s ease, background .2s ease;
+      font-size:14px;
+    }
+    [data-theme="light"] .input, [data-theme="light"] select{background: rgba(11,18,32,.04)}
+    .input:focus, select:focus{border-color: rgba(77,163,255,.55)}
+    .hint{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:12px;}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      background: var(--chip);
+      color:var(--text);
+      font-size:12px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip strong{font-weight:800}
+    .chip .mini{color:var(--muted);font-weight:600}
+    .chip.active{outline:2px solid rgba(77,163,255,.35)}
+    .chip:hover{border-color: rgba(255,255,255,.22)}
+    [data-theme="light"] .chip:hover{border-color: rgba(11,18,32,.22)}
+
+    .stats{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+      padding:12px 14px;margin:0 0 14px;
+      border-radius:18px;border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+    }
+    [data-theme="light"] .stats{background: rgba(11,18,32,.02)}
+    .stats .left{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .badge{border:1px solid var(--border);padding:7px 10px;border-radius:999px;background: rgba(255,255,255,.03);font-size:12px;color:var(--muted);}
+    .badge b{color:var(--text)}
+    .legend{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .legend span{font-size:12px;color:var(--muted)}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);font-size:12px;background: rgba(255,255,255,.03);}
+    .pill .k{width:8px;height:8px;border-radius:99px;background:var(--accent)}
+    .pill .k2{background:var(--accent2)}
+
+    .grid{display:grid;grid-template-columns: 1fr;gap:12px;}
+
+    details{
+      border:1px solid var(--border);
+      border-radius:18px;
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    [data-theme="light"] details{background: rgba(11,18,32,.02)}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 14px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .catTitle{display:flex;flex-direction:column;gap:4px;}
+    .catTitle .name{font-weight:900;letter-spacing:.2px;}
+    .catTitle .desc{color:var(--muted);font-size:12px;max-width: 90ch;}
+    .count{font-size:12px;color:var(--muted);border:1px solid var(--border);padding:6px 10px;border-radius:999px;background: rgba(255,255,255,.03);white-space:nowrap;}
+
+    .items{
+      border-top:1px solid var(--border);
+      padding:10px 12px 14px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width:900px){ .items{grid-template-columns:1fr} }
+
+    .card{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:12px 12px;
+      background: rgba(0,0,0,.10);
+      display:flex;flex-direction:column;gap:10px;
+    }
+    [data-theme="light"] .card{background: rgba(11,18,32,.03)}
+
+    .row1{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;}
+    .offense{font-weight:900;margin:0;font-size:14px;}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12px;
+      background: rgba(77,163,255,.12);
+      border:1px solid rgba(77,163,255,.22);
+      padding:3px 7px;
+      border-radius:999px;
+      color: var(--text);
+      white-space:nowrap;
+    }
+    .lawTag{background: rgba(124,219,182,.10);border:1px solid rgba(124,219,182,.22);}
+    .penalty{margin:0;color:var(--muted);font-size:13px;}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;}
+    .miniBtn{
+      border:1px solid var(--border);
+      background: transparent;
+      color:var(--text);
+      padding:8px 10px;border-radius:12px;
+      cursor:pointer;
+      font-weight:800;font-size:12px;
+    }
+    .miniBtn:hover{border-color: rgba(255,255,255,.22)}
+    [data-theme="light"] .miniBtn:hover{border-color: rgba(11,18,32,.22)}
+
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+      background: rgba(0,0,0,.70);color:#fff;
+      padding:10px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: var(--shadow);
+      font-size:13px;
+      opacity:0;pointer-events:none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.show{opacity:1; transform:translateX(-50%) translateY(-2px)}
+    [data-theme="light"] .toast{background: rgba(11,18,32,.85)}
+
+    footer{margin-top:18px;color:var(--muted);font-size:12px;}
+    footer .note{
+      border:1px dashed var(--border);
+      border-radius:18px;
+      padding:12px 14px;
+      background: rgba(255,255,255,.02);
+    }
+
+    .lawSection{
+      margin-top:14px;
+      border:1px solid var(--border);
+      border-radius:18px;
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    [data-theme="light"] .lawSection{background: rgba(11,18,32,.02)}
+    .lawHeader{padding:14px 14px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+    .lawHeader h2{margin:0;font-size:16px}
+    .lawHeader .small{color:var(--muted);font-size:12px;max-width:90ch}
+    .lawGrid{padding:12px 12px 14px;display:grid;grid-template-columns: 1fr 1fr;gap:10px;}
+    @media (max-width:900px){ .lawGrid{grid-template-columns:1fr} }
+    .lawCard{border:1px solid var(--border);border-radius:16px;padding:12px;background: rgba(0,0,0,.10);display:flex;flex-direction:column;gap:10px;}
+    [data-theme="light"] .lawCard{background: rgba(11,18,32,.03)}
+    .lawCard h3{margin:0;font-size:14px}
+    .lawCard ul{margin:0;padding-left:18px;color:var(--muted);font-size:13px}
+    .lawCard li{margin:6px 0}
+    .lawCard .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .lawCard .top .meta{margin-top:2px}
+
+    @media print{
+      .toolbar, .panel, .toast{display:none !important}
+      body{background:#fff;color:#000}
+      details, .lawSection{box-shadow:none}
+      .card, .lawCard{break-inside:avoid}
+      code{border:1px solid #bbb}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">
+        <h1>KWP Gdańsk — wykroczenia, przestępstwa i podstawy prawne</h1>
+        <div class="sub"> Summer RP | 
+          Wyszukiwalna lista: wykroczenia + przestępstwa + sankcje. Dodatkowo: krótki opis wybranych przepisów (KPK i ustawa o Policji).
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn secondary" id="btnPrint" title="Drukuj / PDF">🖨️ Drukuj</button>
+        <button class="btn" id="btnTheme" title="Przełącz motyw"><span class="dot" aria-hidden="true"></span> Motyw</button>
+      </div>
+    </header>
+
+    <div class="panel">
+      <div class="filters">
+        <input class="input" id="q" placeholder="Szukaj: np. 92a, 178a, kradzież, 244 kpk, 1500, narkotyków, art. 15…" />
+        <select id="category">
+          <option value="all">Wszystkie kategorie</option>
+        </select>
+        <select id="sort">
+          <option value="default">Sortowanie: domyślne</option>
+          <option value="name_asc">Nazwa A→Z</option>
+          <option value="name_desc">Nazwa Z→A</option>
+          <option value="article_asc">Artykuł A→Z</option>
+          <option value="article_desc">Artykuł Z→A</option>
+        </select>
+      </div>
+
+      <div class="hint" id="chips"></div>
+    </div>
+
+    <div class="stats" aria-live="polite">
+      <div class="left">
+        <span class="badge">Wyniki: <b id="count">0</b></span>
+        <span class="badge">Kategorie: <b id="catCount">0</b></span>
+      </div>
+      <div class="legend">
+        <span class="pill"><span class="k" aria-hidden="true"></span> KW / k.w.</span>
+        <span class="pill"><span class="k2" aria-hidden="true"></span> KK / ustawy / KPK</span>
+      </div>
+    </div>
+
+    <main class="grid" id="out"></main>
+
+    <!-- Sekcja opisów przepisów -->
+    <section class="lawSection" id="lawSection">
+      <div class="lawHeader">
+        <div>
+          <h2>📌 Przepisy — opis (ściąga praktyczna)</h2>
+          <div class="small">
+            Krótko i operacyjnie: co daje przepis, kiedy stosować i co udokumentować. (Nie jest to porada prawna — do czynności zawsze stosuj aktualne brzmienie przepisów i procedury jednostki).
+          </div>
+        </div>
+        <span class="count" id="lawCount">3 przepisy</span>
+      </div>
+
+      <div class="lawGrid">
+        <div class="lawCard">
+          <div class="top">
+            <div>
+              <h3>art. 244 KPK — zatrzymanie osoby (przez Policję)</h3>
+              <div class="meta"><code class="lawTag">art. 244 KPK</code></div>
+            </div>
+            <div class="actions">
+              <button class="miniBtn" data-copy="full" data-text="art. 244 KPK — zatrzymanie osoby (przez Policję)">Kopiuj</button>
+            </div>
+          </div>
+          <ul>
+            <li><b>O co chodzi:</b> przepis reguluje podstawy i tryb <b>zatrzymania osoby</b> przez Policję w postępowaniu karnym.</li>
+            <li><b>Kiedy w skrócie:</b> gdy istnieją przesłanki do zatrzymania (np. podejrzenie popełnienia przestępstwa + potrzeba zabezpieczenia toku czynności / ryzyko ucieczki / ukrywania się / niemożność ustalenia tożsamości — w praktyce zależnie od stanu faktycznego).</li>
+            <li><b>Co trzeba zapewnić:</b> pouczenia o prawach, możliwość kontaktu (np. obrońca / osoba najbliższa), prawidłowe udokumentowanie przyczyn i czasu zatrzymania.</li>
+            <li><b>Dokumenty:</b> protokół zatrzymania, wzmianki/notatki o podstawie faktycznej, pouczenia, ewentualne badania (jeśli zasadne), czynności z rzeczami.</li>
+            <li><b>Kontrola:</b> zatrzymanie podlega kontroli (możliwość złożenia zażalenia), więc kluczowe są <b>konkretne przesłanki</b> i opis stanu faktycznego.</li>
+          </ul>
+        </div>
+
+        <div class="lawCard">
+          <div class="top">
+            <div>
+              <h3>art. 15 ustawy o Policji — uprawnienia Policji</h3>
+              <div class="meta"><code class="lawTag">art. 15 ust. o Policji</code></div>
+            </div>
+            <div class="actions">
+              <button class="miniBtn" data-copy="full" data-text="art. 15 ustawy o Policji — uprawnienia Policji">Kopiuj</button>
+            </div>
+          </div>
+          <ul>
+            <li><b>O co chodzi:</b> katalog podstawowych <b>uprawnień Policji</b> w związku z wykonywaniem zadań.</li>
+            <li><b>Typowe przykłady:</b> legitymowanie osób; zatrzymywanie osób w przypadkach przewidzianych prawem; przeszukanie osób/rzeczy/pomieszczeń w granicach prawa; kontrola osobista (gdy są przesłanki); doprowadzenie; obserwacja i inne czynności operacyjne — zależnie od podstawy.</li>
+            <li><b>W praktyce:</b> zawsze wiąż to z <b>konkretną podstawą faktyczną</b> (co policjant ustalił/zaobserwował) i właściwą podstawą prawną dla danej czynności.</li>
+            <li><b>Dokumentuj:</b> cel czynności, przebieg, wynik, pouczenia, dane osób, uzasadnienie proporcjonalności.</li>
+          </ul>
+        </div>
+
+        <div class="lawCard">
+          <div class="top">
+            <div>
+              <h3>art. 16 ustawy o Policji — zasady użycia środków przymusu</h3>
+              <div class="meta"><code class="lawTag">art. 16 ust. o Policji</code></div>
+            </div>
+            <div class="actions">
+              <button class="miniBtn" data-copy="full" data-text="art. 16 ustawy o Policji — zasady użycia środków przymusu">Kopiuj</button>
+            </div>
+          </div>
+          <ul>
+            <li><b>O co chodzi:</b> ogólna zasada, że Policja wykonuje czynności w sposób <b>możliwie najmniej naruszający dobra</b> i stosuje środki adekwatne do sytuacji.</li>
+            <li><b>Klucz:</b> <b>proporcjonalność, konieczność i celowość</b> — wybierasz środek najmniej dolegliwy, który pozwoli osiągnąć legalny cel czynności.</li>
+            <li><b>Praktycznie:</b> najpierw wezwanie/polecenie, dopiero gdy nieskuteczne lub niemożliwe — eskalacja (zależnie od zagrożenia).</li>
+            <li><b>Dokumentuj:</b> dlaczego środek był konieczny, czemu nie wystarczyły łagodniejsze metody, jakie było zagrożenie i efekt.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="note">
+        <b>Komenda Wojewódzka Policji w Gdańsku | Summer RP</b>
+      </div>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  const DATA = [
+    // WYKROCZENIA
+    {
+      id: "drogowe",
+      icon: "🚗",
+      name: "Wykroczenia drogowe",
+      desc: "Najczęstsze naruszenia w ruchu drogowym: prędkość, pierwszeństwo, światła, dokumenty, stan techniczny itd.",
+      items: [
+        { t:"Przekroczenie dozwolonej prędkości", a:"art. 92a KW", p:"mandat od 50 do 2500 zł, 1–15 pkt" },
+        { t:"Jazda bez prawa jazdy", a:"Art. 94 §1 k.w.", p:"Grzywna do 5 000 zł + zakaz prowadzenia do 3 lat" },
+        { t:"Brak obowiązkowego ubezpieczenia OC pojazdu", a:"art. 95 ustawy o ubezpieczeniach obowiązkowych / UFG", p:"kara pieniężna od 1200 do 6000 zł (w zależności od długości okresu braku OC), odpowiedzialność za szkody wyrządzone osobom trzecim, możliwe zatrzymanie dowodu rejestracyjnego" },
+        { t:"Nieustąpienie pierwszeństwa przejazdu", a:"art. 86 §1 KW", p:"mandat 300–1500 zł, 6 pkt" },
+        { t:"Przejazd na czerwonym świetle", a:"art. 92 §1 KW", p:"mandat 500 zł, 6 pkt" },
+        { t:"Nieprawidłowe wyprzedzanie", a:"art. 86 §1 KW", p:"mandat 200–1000 zł, 8 pkt" },
+        { t:"Nieustąpienie pierwszeństwa pieszemu na przejściu", a:"art. 86 §1 KW", p:"mandat 1500 zł, 15 pkt" },
+        { t:"Korzystanie z telefonu podczas jazdy", a:"art. 97 KW", p:"mandat 500 zł, 12 pkt" },
+        { t:"Jazda bez zapiętych pasów bezpieczeństwa", a:"art. 97 KW", p:"mandat 100 zł, 5 pkt" },
+        { t:"Nieprawidłowe cofanie lub zawracanie", a:"art. 86 §1 KW", p:"mandat 200–300 zł, 6 pkt" },
+        { t:"Nieposiadanie przy sobie dokumentów (prawo jazdy, dowód rejestracyjny)", a:"art. 95 KW", p:"mandat 50 zł" },
+        { t:"Nieustąpienie pierwszeństwa pojazdowi uprzywilejowanemu", a:"art. 90 KW", p:"mandat 500 zł, 8 pkt" },
+        { t:"Spowodowanie kolizji drogowej", a:"art. 86 §1 KW", p:"mandat 1000 zł, 10 pkt" },
+        { t:"Nieprawidłowe parkowanie", a:"art. 97 KW", p:"mandat 100–300 zł" },
+        { t:"Zatrzymanie lub postój w miejscu niedozwolonym", a:"art. 97 KW", p:"mandat 100–300 zł" },
+        { t:"Niepodporządkowanie się poleceniom policjanta", a:"art. 92 §1 KW", p:"mandat 500 zł" },
+        { t:"Ucieczka z miejsca kolizji", a:"art. 92 §1 KW", p:"mandat 2000 zł lub zatrzymanie prawa jazdy" },
+        { t:"Jazda pojazdem niesprawnym technicznie", a:"art. 97 KW", p:"mandat 500 zł, możliwe zatrzymanie dowodu rejestracyjnego" },
+        { t:"Przewóz zbyt wielu pasażerów", a:"art. 97 KW", p:"mandat 300 zł, 5 pkt" },
+        { t:"Prowadzenie pojazdu z cofniętymi uprawnieniami", a:"art. 180a KK", p:"Kara ograniczenia wolności do lat 2." },
+        { t:"Ucieczka od kontroli przez osobę uprawnianą w ruchu drogowym", a:"art. 178b. KK", p:"Kara pozbawienia wolności od 3 miesięcy do lat 5" },
+        { t:"Prowadzenie pojazdu niedopuszczonego do ruchu (M.in. brak rejestracji)", a:"art. 94 § 2 KW", p:"Kara grzywny 1 500 zł lub skierowanie sprawy do sądu" },
+      ]
+    },
+    {
+      id: "porzadkowe",
+      icon: "🏠",
+      name: "Wykroczenia porządkowe i administracyjne",
+      desc: "Porządek, czystość, cisza nocna, sanitariat, zwierzęta, utrzymanie posesji.",
+      items: [
+        { t:"Zaśmiecanie miejsca publicznego", a:"art. 145 KW", p:"mandat 500 zł" },
+        { t:"Zakłócanie ciszy nocnej", a:"art. 51 §1 KW", p:"mandat 500 zł" },
+        { t:"Spożywanie alkoholu w miejscu publicznym", a:"art. 43¹ ustawy o wychowaniu w trzeźwości", p:"mandat 100 zł" },
+        { t:"Wyrzucanie śmieci poza wyznaczone miejsce", a:"art. 145 KW", p:"mandat 500 zł" },
+        { t:"Niszczenie zieleni miejskiej", a:"art. 144 KW", p:"mandat 500 zł" },
+        { t:"Wyprowadzanie psa bez smyczy lub kagańca", a:"art. 77 KW", p:"mandat 250 zł" },
+        { t:"Niewłaściwe utrzymanie posesji", a:"art. 117 §1 KW", p:"mandat 100–500 zł" },
+        { t:"Nieprzestrzeganie przepisów sanitarnych", a:"art. 116 §1 KW", p:"mandat 100–500 zł" },
+        { t:"Załatwianie potrzeb fizjologicznych w miejscu publicznym", a:"art. 145 KW", p:"mandat 500 zł" },
+      ]
+    },
+    {
+      id: "publiczne",
+      icon: "🧍‍♂️",
+      name: "Wykroczenia przeciwko bezpieczeństwu i porządkowi publicznemu",
+      desc: "Interwencje, tożsamość, porządek publiczny, fałszywe alarmy, wulgarność, bójki, wandalizm.",
+      items: [
+        { t:"Utrudnianie interwencji policji lub straży", a:"art. 65 KW", p:"mandat 500 zł" },
+        { t:"Odmowa okazania dokumentu tożsamości", a:"art. 65 §2 KW", p:"mandat 500 zł" },
+        { t:"Podszywanie się pod funkcjonariusza", a:"art. 61 §1 KW", p:"mandat 1000 zł lub areszt" },
+        { t:"Niepodporządkowanie się poleceniom służb", a:"art. 65 KW", p:"mandat 500 zł" },
+        { t:"Zakłócanie porządku publicznego", a:"art. 51 §1 KW", p:"mandat 500 zł" },
+        { t:"Udział w bójce lub pobiciu", a:"art. 158 KK", p:"kara aresztu lub więzienia" },
+        { t:"Drobne akty wandalizmu", a:"art. 124 KW", p:"mandat 500–1000 zł" },
+        { t:"Malowanie graffiti bez zgody właściciela", a:"art. 124 KW", p:"mandat 500 zł" },
+        { t:"Nieudzielenie pomocy ofierze wypadku", a:"art. 93 KW", p:"mandat 500 zł lub kara aresztu" },
+        { t:"Używanie nielegalnych sygnałów świetlnych lub dźwiękowych", a:"art. 96 §1 KW", p:"mandat 500 zł" },
+        { t:"Rozpowszechnianie fałszywych alarmów", a:"art. 66 KW", p:"mandat 1500 zł lub areszt" },
+        { t:"Publiczne używanie słów nieprzyzwoitych", a:"art. 141 KW", p:"mandat 500 zł" },
+        { t:"Zakłócanie zgromadzenia lub manifestacji", a:"art. 52 KW", p:"mandat 500 zł" },
+      ]
+    },
+
+    // PRZESTĘPSTWA (NOWE)
+    {
+      id: "prz_drogowe",
+      icon: "🚓",
+      name: "Przestępstwa drogowe",
+      desc: "Przestępstwa w ruchu drogowym (nietrzeźwość, narkotyki, wypadki, ucieczki).",
+      items: [
+        { t:"Prowadzenie pojazdu w stanie nietrzeźwości", a:"art. 178a KK", p:"kara pozbawienia wolności do 2 lat, zakaz prowadzenia pojazdów" },
+        { t:"Spowodowanie wypadku ze skutkiem śmiertelnym", a:"art. 177 §2 KK", p:"kara pozbawienia wolności 6 miesięcy – 8 lat" },
+        { t:"Ucieczka z miejsca wypadku", a:"art. 178 §1 KK", p:"kara pozbawienia wolności do 3 lat" },
+        { t:"Prowadzenie pojazdu pod wpływem narkotyków", a:"art. 178a §1 KK", p:"kara pozbawienia wolności do 2 lat, zakaz prowadzenia pojazdów" },
+      ]
+    },
+    {
+      id: "prz_mienie",
+      icon: "🏦",
+      name: "Przestępstwa przeciwko mieniu",
+      desc: "Kradzieże, włamania, rozboje, przywłaszczenia i oszustwa.",
+      items: [
+        { t:"Kradzież", a:"art. 278 KK", p:"kara pozbawienia wolności do 5 lat" },
+        { t:"Kradzież z włamaniem", a:"art. 279 KK", p:"kara pozbawienia wolności od 3 miesięcy do 5 lat" },
+        { t:"Rozbój", a:"art. 280 KK", p:"kara pozbawienia wolności od 2 do 12 lat" },
+        { t:"Przywłaszczenie", a:"art. 284 KK", p:"kara pozbawienia wolności do 3 lat" },
+        { t:"Oszustwo", a:"art. 286 KK", p:"kara pozbawienia wolności do 8 lat" },
+      ]
+    },
+    {
+      id: "prz_osoba",
+      icon: "🧍‍♂️",
+      name: "Przestępstwa przeciwko osobie",
+      desc: "Przemoc, groźby, narażenie życia/zdrowia, ciężkie skutki.",
+      items: [
+        { t:"Pobicie", a:"art. 158 KK", p:"kara pozbawienia wolności do 3 lat" },
+        { t:"Ciężkie uszkodzenie ciała", a:"art. 156 KK", p:"kara pozbawienia wolności od 6 miesięcy do 8 lat" },
+        { t:"Zabójstwo", a:"art. 148 KK", p:"kara pozbawienia wolności od 8 lat do dożywocia" },
+        { t:"Groźby karalne", a:"art. 190 KK", p:"kara pozbawienia wolności do 2 lat" },
+        { t:"Narażenie na bezpośrednie niebezpieczeństwo utraty życia lub zdrowia", a:"art. 160 KK", p:"kara pozbawienia wolności do 3 lat" },
+      ]
+    },
+    {
+      id: "prz_bezp",
+      icon: "🔫",
+      name: "Przestępstwa przeciwko bezpieczeństwu publicznemu",
+      desc: "Broń bez zezwolenia, utrudnianie czynności, porwania, czyny terrorystyczne.",
+      items: [
+        { t:"Posiadanie i używanie broni bez zezwolenia", a:"art. 263 KK", p:"kara pozbawienia wolności do 8 lat" },
+        { t:"Utrudnianie czynności służb publicznych", a:"art. 224 KK", p:"kara pozbawienia wolności do 3 lat" },
+        { t:"Porwanie", a:"art. 189 KK", p:"kara pozbawienia wolności od 3 do 15 lat" },
+        { t:"Terroryzm i groźba użycia przemocy", a:"art. 118 KK", p:"kara pozbawienia wolności od 5 do 15 lat" },
+      ]
+    },
+    {
+      id: "prz_gosp",
+      icon: "💰",
+      name: "Przestępstwa gospodarcze",
+      desc: "Dokumenty, pieniądze, korupcja, nadużycia i oszustwa podatkowe.",
+      items: [
+        { t:"Fałszowanie pieniędzy lub dokumentów", a:"art. 270 KK", p:"kara pozbawienia wolności do 5 lat" },
+        { t:"Korupcja i łapownictwo", a:"art. 228 KK", p:"kara pozbawienia wolności od 6 miesięcy do 8 lat" },
+        { t:"Podrabianie faktur i oszustwa podatkowe", a:"art. 271 KK", p:"kara pozbawienia wolności do 5 lat" },
+      ]
+    },
+  ];
+
+  const $ = (sel) => document.querySelector(sel);
+  const out = $("#out");
+  const q = $("#q");
+  const category = $("#category");
+  const sortSel = $("#sort");
+  const countEl = $("#count");
+  const catCountEl = $("#catCount");
+  const chipsEl = $("#chips");
+  const toast = $("#toast");
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(()=>toast.classList.remove("show"), 1700);
+  }
+  function norm(s){ return (s||"").toString().toLowerCase().replace(/\s+/g," ").trim(); }
+  function isKKorUstawaOrKPK(article){
+    const a = norm(article);
+    return a.includes("kk") || a.includes("ustaw") || a.includes("kpk");
+  }
+
+  function init(){
+    for(const c of DATA){
+      const opt = document.createElement("option");
+      opt.value = c.id;
+      opt.textContent = `${c.icon} ${c.name}`;
+      category.appendChild(opt);
+    }
+
+    const quick = [
+      { label:"Prędkość", q:"92a" },
+      { label:"Nietrzeźwość", q:"178a" },
+      { label:"Kradzież", q:"278" },
+      { label:"Rozbój", q:"280" },
+      { label:"Groźby", q:"190" },
+      { label:"Broń", q:"263" },
+      { label:"Tożsamość", q:"65 §2" },
+      { label:"244 KPK", q:"244 kpk" },
+      { label:"Art. 15", q:"art. 15" },
+    ];
+
+    quick.forEach(ch => {
+      const el = document.createElement("div");
+      el.className = "chip";
+      el.innerHTML = `<strong>${ch.label}</strong> <span class="mini">(${ch.q})</span>`;
+      el.addEventListener("click", ()=>{
+        q.value = ch.q;
+        render();
+        [...chipsEl.querySelectorAll(".chip")].forEach(x=>x.classList.remove("active"));
+        el.classList.add("active");
+        q.focus();
+      });
+      chipsEl.appendChild(el);
+    });
+
+    const saved = localStorage.getItem("policja_theme");
+    if(saved === "light") document.documentElement.setAttribute("data-theme","light");
+
+    $("#btnTheme").addEventListener("click", toggleTheme);
+    $("#btnPrint").addEventListener("click", ()=>window.print());
+
+    q.addEventListener("input", render);
+    category.addEventListener("change", render);
+    sortSel.addEventListener("change", render);
+
+    // kopiowanie w sekcji przepisów
+    document.querySelectorAll("#lawSection [data-copy]").forEach(btn=>{
+      btn.addEventListener("click", (e)=>{
+        const text = e.currentTarget.getAttribute("data-text") || "";
+        copyText(text);
+      });
+    });
+
+    render();
+  }
+
+  function toggleTheme(){
+    const cur = document.documentElement.getAttribute("data-theme");
+    const next = cur === "light" ? "" : "light";
+    if(next) document.documentElement.setAttribute("data-theme", next);
+    else document.documentElement.removeAttribute("data-theme");
+    localStorage.setItem("policja_theme", next || "dark");
+  }
+
+  function flatten(){
+    const list = [];
+    for(const c of DATA){
+      for(const it of c.items){
+        list.push({
+          catId: c.id,
+          catName: c.name,
+          catIcon: c.icon,
+          title: it.t,
+          article: it.a,
+          penalty: it.p
+        });
+      }
+    }
+    return list;
+  }
+
+  function applyFilters(items){
+    const qv = norm(q.value);
+    const cat = category.value;
+    let res = items.filter(x => (cat === "all" ? true : x.catId === cat));
+
+    if(qv){
+      res = res.filter(x => {
+        const hay = norm(`${x.title} ${x.article} ${x.penalty} ${x.catName}`);
+        return hay.includes(qv);
+      });
+    }
+
+    const s = sortSel.value;
+    if(s !== "default"){
+      const by = (k) => (a,b) => norm(a[k]).localeCompare(norm(b[k]), "pl");
+      if(s === "name_asc") res.sort(by("title"));
+      if(s === "name_desc") res.sort((a,b)=>by("title")(b,a));
+      if(s === "article_asc") res.sort(by("article"));
+      if(s === "article_desc") res.sort((a,b)=>by("article")(b,a));
+    }
+    return res;
+  }
+
+  function groupByCategory(items){
+    const map = new Map();
+    for(const c of DATA){ map.set(c.id, { ...c, items: [] }); }
+    for(const it of items){ map.get(it.catId).items.push(it); }
+    return [...map.values()].filter(c => c.items.length > 0);
+  }
+
+  async function copyText(text){
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast("Skopiowano ✅");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      showToast("Skopiowano ✅");
+    }
+  }
+
+  function cardHTML(it){
+    const lawClass = isKKorUstawaOrKPK(it.article) ? "lawTag" : "";
+    const full = `${it.title} — ${it.article} — ${it.penalty}`;
+    return `
+      <div class="card">
+        <div class="row1">
+          <div>
+            <p class="offense">${escapeHtml(it.title)}</p>
+            <div class="meta">
+              <code class="${lawClass}">${escapeHtml(it.article)}</code>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="miniBtn" data-copy="article" data-text="${escapeAttr(it.article)}" title="Kopiuj artykuł">Kopiuj art.</button>
+            <button class="miniBtn" data-copy="full" data-text="${escapeAttr(full)}" title="Kopiuj cały wpis">Kopiuj wpis</button>
+          </div>
+        </div>
+        <p class="penalty">${escapeHtml(it.penalty)}</p>
+      </div>
+    `;
+  }
+
+  function render(){
+    const all = flatten();
+    const filtered = applyFilters(all);
+    const grouped = groupByCategory(filtered);
+
+    countEl.textContent = filtered.length.toString();
+    catCountEl.textContent = grouped.length.toString();
+    out.innerHTML = "";
+
+    for(const cat of grouped){
+      const det = document.createElement("details");
+      det.open = true;
+      det.innerHTML = `
+        <summary>
+          <div class="catTitle">
+            <div class="name">${cat.icon} ${escapeHtml(cat.name)}</div>
+            <div class="desc">${escapeHtml(cat.desc)}</div>
+          </div>
+          <div class="count">${cat.items.length} pozycji</div>
+        </summary>
+        <div class="items">
+          ${cat.items.map(cardHTML).join("")}
+        </div>
+      `;
+      out.appendChild(det);
+    }
+
+    if(grouped.length === 0){
+      out.innerHTML = `
+        <div class="panel" style="margin-top:8px">
+          <b>Brak wyników.</b>
+          <div class="sub" style="margin-top:6px">Spróbuj innej frazy (np. <code>178a</code>, <code>278</code>, <code>244 kpk</code>).</div>
+        </div>
+      `;
+    }
+
+    out.querySelectorAll("[data-copy]").forEach(btn=>{
+      btn.addEventListener("click", (e)=>{
+        const text = e.currentTarget.getAttribute("data-text") || "";
+        copyText(text);
+      });
+    });
+  }
+
+  function escapeHtml(str){
+    return (str||"").replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  }
+  function escapeAttr(str){
+    return escapeHtml(str).replace(/`/g, "&#96;");
+  }
+
+  init();
+</script>
+</body>
+</html>
