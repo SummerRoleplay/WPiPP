@@ -197,6 +197,22 @@
     .miniBtn:hover{border-color: rgba(255,255,255,.22)}
     [data-theme="light"] .miniBtn:hover{border-color: rgba(11,18,32,.22)}
 
+    /* ⭐ Ulubione */
+    .starBtn{
+      border:1px solid var(--border);
+      background: transparent;
+      color:var(--text);
+      padding:8px 10px;border-radius:12px;
+      cursor:pointer;
+      font-weight:900;font-size:12px;
+    }
+    .starBtn:hover{border-color: rgba(255,255,255,.22)}
+    [data-theme="light"] .starBtn:hover{border-color: rgba(11,18,32,.22)}
+    .starBtn.active{
+      background: rgba(255, 215, 0, .12);
+      border-color: rgba(255, 215, 0, .35);
+    }
+
     .toast{
       position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
       background: rgba(0,0,0,.70);color:#fff;
@@ -249,18 +265,20 @@
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header>
       <div class="title">
         <h1>KWP Gdańsk — wykroczenia, przestępstwa i podstawy prawne</h1>
-        <div class="sub"> Summer RP | 
-          Wyszukiwalna lista: wykroczenia + przestępstwa + sankcje. Dodatkowo: krótki opis wybranych przepisów (KPK i ustawa o Policji).
+        <div class="sub"> Summer RP |
+          Wyszukiwalna lista: wykroczenia + przestępstwa + sankcje. Dodatkowo: krótki opis wybranych przepisów (KPK i ustawa o Policji) + ŚPB.
         </div>
       </div>
 
       <div class="toolbar">
         <button class="btn secondary" id="btnPrint" title="Drukuj / PDF">🖨️ Drukuj</button>
+        <button class="btn secondary" id="btnFavs" title="Pokaż tylko ulubione">⭐ Ulubione</button>
         <button class="btn" id="btnTheme" title="Przełącz motyw"><span class="dot" aria-hidden="true"></span> Motyw</button>
       </div>
     </header>
@@ -287,6 +305,7 @@
       <div class="left">
         <span class="badge">Wyniki: <b id="count">0</b></span>
         <span class="badge">Kategorie: <b id="catCount">0</b></span>
+        <span class="badge">Ulubione: <b id="favCount">0</b></span>
       </div>
       <div class="legend">
         <span class="pill"><span class="k" aria-hidden="true"></span> KW / k.w.</span>
@@ -366,6 +385,71 @@
       </div>
     </section>
 
+    <!-- Sekcja ŚPB -->
+    <section class="lawSection" id="spbSection">
+      <div class="lawHeader">
+        <div>
+          <h2>🛡️ ŚPB — Środki Przymusu Bezpośredniego (ściąga)</h2>
+          <div class="small">
+            Skrót operacyjny: kiedy rozważyć użycie, o czym pamiętać i co dokumentować. (Zawsze stosuj aktualne procedury i przepisy).
+          </div>
+        </div>
+        <span class="count" id="spbCount">0 środków</span>
+      </div>
+      <div class="lawGrid" id="spbGrid"></div>
+    </section>
+
+    <!-- Sekcja: środki letalne / nieletalne -->
+    <section class="lawSection" id="lnSection">
+      <div class="lawHeader">
+        <div>
+          <h2>⚖️ Środki letalne i nieletalne — co to jest?</h2>
+          <div class="small">
+            Pojęcia opisowe (nie “lista wyposażenia”): pomagają rozróżnić środki, których skutkiem może być śmierć, od tych projektowanych głównie do obezwładnienia. Zawsze obowiązuje zasada legalności, konieczności i proporcjonalności.
+          </div>
+        </div>
+        <span class="count">2 pojęcia</span>
+      </div>
+
+      <div class="lawGrid">
+        <div class="lawCard">
+          <div class="top">
+            <div>
+              <h3>Środki <b>letalne</b></h3>
+              <div class="meta"><code class="lawTag">wysokie ryzyko śmierci</code></div>
+            </div>
+            <div class="actions">
+              <button class="miniBtn" data-copy="full" data-text="Środki letalne — środki, których użycie może z dużym prawdopodobieństwem spowodować śmierć (np. broń palna). Stosowanie tylko w ściśle określonych prawem sytuacjach, przy spełnieniu przesłanek i zasad (konieczność, proporcjonalność).">Kopiuj</button>
+            </div>
+          </div>
+          <ul>
+            <li><b>Znaczenie:</b> środki, których użycie może z dużym prawdopodobieństwem prowadzić do <b>śmierci</b> osoby.</li>
+            <li><b>Przykład ogólny:</b> broń palna (w praktyce — kategoria “najwyższego ryzyka”).</li>
+            <li><b>Ważne:</b> “letalny” nie znaczy “na pewno zabija”, tylko że <b>ryzyko śmierci</b> jest istotne.</li>
+            <li><b>Dokumentuj:</b> przesłanki, dlaczego inne środki były niewystarczające/niemożliwe, i jakie było bezpośrednie zagrożenie.</li>
+          </ul>
+        </div>
+
+        <div class="lawCard">
+          <div class="top">
+            <div>
+              <h3>Środki <b>nieletalne</b> (mniej-letalne)</h3>
+              <div class="meta"><code class="lawTag">obezwładnienie</code></div>
+            </div>
+            <div class="actions">
+              <button class="miniBtn" data-copy="full" data-text="Środki nieletalne (mniej-letalne) — projektowane głównie do obezwładnienia/ograniczenia osoby bez powodowania śmierci (np. kajdanki, siła fizyczna, środki chemiczne, urządzenia obezwładniające). Nadal mogą spowodować ciężkie obrażenia, więc obowiązuje proporcjonalność i dokumentowanie.">Kopiuj</button>
+            </div>
+          </div>
+          <ul>
+            <li><b>Znaczenie:</b> środki projektowane głównie do <b>obezwładnienia</b> lub ograniczenia działań osoby, bez intencji powodowania śmierci.</li>
+            <li><b>Przykłady ogólne:</b> kajdanki, siła fizyczna, środki chemiczne (gaz), urządzenia obezwładniające — zależnie od wyposażenia i procedur.</li>
+            <li><b>Uwaga:</b> “nieletalne” ≠ “bezpieczne” — w złych warunkach/sposobie użycia mogą spowodować <b>poważne skutki</b>.</li>
+            <li><b>Dokumentuj:</b> eskalację, warunki (tłum, przestrzeń), czas użycia, skutki i czynności po użyciu (np. pomoc/ocena stanu).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <footer>
       <div class="note">
         <b>Komenda Wojewódzka Policji w Gdańsku | Summer RP</b>
@@ -375,364 +459,579 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script>
-  const DATA = [
-    // WYKROCZENIA
-    {
-      id: "drogowe",
-      icon: "🚗",
-      name: "Wykroczenia drogowe",
-      desc: "Najczęstsze naruszenia w ruchu drogowym: prędkość, pierwszeństwo, światła, dokumenty, stan techniczny itd.",
-      items: [
-        { t:"Przekroczenie dozwolonej prędkości", a:"art. 92a KW", p:"mandat od 50 do 2500 zł, 1–15 pkt" },
-        { t:"Jazda bez prawa jazdy", a:"Art. 94 §1 k.w.", p:"Grzywna do 5 000 zł + zakaz prowadzenia do 3 lat" },
-        { t:"Brak obowiązkowego ubezpieczenia OC pojazdu", a:"art. 95 ustawy o ubezpieczeniach obowiązkowych / UFG", p:"kara pieniężna od 1200 do 6000 zł (w zależności od długości okresu braku OC), odpowiedzialność za szkody wyrządzone osobom trzecim, możliwe zatrzymanie dowodu rejestracyjnego" },
-        { t:"Nieustąpienie pierwszeństwa przejazdu", a:"art. 86 §1 KW", p:"mandat 300–1500 zł, 6 pkt" },
-        { t:"Przejazd na czerwonym świetle", a:"art. 92 §1 KW", p:"mandat 500 zł, 6 pkt" },
-        { t:"Nieprawidłowe wyprzedzanie", a:"art. 86 §1 KW", p:"mandat 200–1000 zł, 8 pkt" },
-        { t:"Nieustąpienie pierwszeństwa pieszemu na przejściu", a:"art. 86 §1 KW", p:"mandat 1500 zł, 15 pkt" },
-        { t:"Korzystanie z telefonu podczas jazdy", a:"art. 97 KW", p:"mandat 500 zł, 12 pkt" },
-        { t:"Jazda bez zapiętych pasów bezpieczeństwa", a:"art. 97 KW", p:"mandat 100 zł, 5 pkt" },
-        { t:"Nieprawidłowe cofanie lub zawracanie", a:"art. 86 §1 KW", p:"mandat 200–300 zł, 6 pkt" },
-        { t:"Nieposiadanie przy sobie dokumentów (prawo jazdy, dowód rejestracyjny)", a:"art. 95 KW", p:"mandat 50 zł" },
-        { t:"Nieustąpienie pierwszeństwa pojazdowi uprzywilejowanemu", a:"art. 90 KW", p:"mandat 500 zł, 8 pkt" },
-        { t:"Spowodowanie kolizji drogowej", a:"art. 86 §1 KW", p:"mandat 1000 zł, 10 pkt" },
-        { t:"Nieprawidłowe parkowanie", a:"art. 97 KW", p:"mandat 100–300 zł" },
-        { t:"Zatrzymanie lub postój w miejscu niedozwolonym", a:"art. 97 KW", p:"mandat 100–300 zł" },
-        { t:"Niepodporządkowanie się poleceniom policjanta", a:"art. 92 §1 KW", p:"mandat 500 zł" },
-        { t:"Ucieczka z miejsca kolizji", a:"art. 92 §1 KW", p:"mandat 2000 zł lub zatrzymanie prawa jazdy" },
-        { t:"Jazda pojazdem niesprawnym technicznie", a:"art. 97 KW", p:"mandat 500 zł, możliwe zatrzymanie dowodu rejestracyjnego" },
-        { t:"Przewóz zbyt wielu pasażerów", a:"art. 97 KW", p:"mandat 300 zł, 5 pkt" },
-        { t:"Prowadzenie pojazdu z cofniętymi uprawnieniami", a:"art. 180a KK", p:"Kara ograniczenia wolności do lat 2." },
-        { t:"Ucieczka od kontroli przez osobę uprawnianą w ruchu drogowym", a:"art. 178b. KK", p:"Kara pozbawienia wolności od 3 miesięcy do lat 5" },
-        { t:"Prowadzenie pojazdu niedopuszczonego do ruchu (M.in. brak rejestracji)", a:"art. 94 § 2 KW", p:"Kara grzywny 1 500 zł lub skierowanie sprawy do sądu" },
-      ]
-    },
-    {
-      id: "porzadkowe",
-      icon: "🏠",
-      name: "Wykroczenia porządkowe i administracyjne",
-      desc: "Porządek, czystość, cisza nocna, sanitariat, zwierzęta, utrzymanie posesji.",
-      items: [
-        { t:"Zaśmiecanie miejsca publicznego", a:"art. 145 KW", p:"mandat 500 zł" },
-        { t:"Zakłócanie ciszy nocnej", a:"art. 51 §1 KW", p:"mandat 500 zł" },
-        { t:"Spożywanie alkoholu w miejscu publicznym", a:"art. 43¹ ustawy o wychowaniu w trzeźwości", p:"mandat 100 zł" },
-        { t:"Wyrzucanie śmieci poza wyznaczone miejsce", a:"art. 145 KW", p:"mandat 500 zł" },
-        { t:"Niszczenie zieleni miejskiej", a:"art. 144 KW", p:"mandat 500 zł" },
-        { t:"Wyprowadzanie psa bez smyczy lub kagańca", a:"art. 77 KW", p:"mandat 250 zł" },
-        { t:"Niewłaściwe utrzymanie posesji", a:"art. 117 §1 KW", p:"mandat 100–500 zł" },
-        { t:"Nieprzestrzeganie przepisów sanitarnych", a:"art. 116 §1 KW", p:"mandat 100–500 zł" },
-        { t:"Załatwianie potrzeb fizjologicznych w miejscu publicznym", a:"art. 145 KW", p:"mandat 500 zł" },
-      ]
-    },
-    {
-      id: "publiczne",
-      icon: "🧍‍♂️",
-      name: "Wykroczenia przeciwko bezpieczeństwu i porządkowi publicznemu",
-      desc: "Interwencje, tożsamość, porządek publiczny, fałszywe alarmy, wulgarność, bójki, wandalizm.",
-      items: [
-        { t:"Utrudnianie interwencji policji lub straży", a:"art. 65 KW", p:"mandat 500 zł" },
-        { t:"Odmowa okazania dokumentu tożsamości", a:"art. 65 §2 KW", p:"mandat 500 zł" },
-        { t:"Podszywanie się pod funkcjonariusza", a:"art. 61 §1 KW", p:"mandat 1000 zł lub areszt" },
-        { t:"Niepodporządkowanie się poleceniom służb", a:"art. 65 KW", p:"mandat 500 zł" },
-        { t:"Zakłócanie porządku publicznego", a:"art. 51 §1 KW", p:"mandat 500 zł" },
-        { t:"Udział w bójce lub pobiciu", a:"art. 158 KK", p:"kara aresztu lub więzienia" },
-        { t:"Drobne akty wandalizmu", a:"art. 124 KW", p:"mandat 500–1000 zł" },
-        { t:"Malowanie graffiti bez zgody właściciela", a:"art. 124 KW", p:"mandat 500 zł" },
-        { t:"Nieudzielenie pomocy ofierze wypadku", a:"art. 93 KW", p:"mandat 500 zł lub kara aresztu" },
-        { t:"Używanie nielegalnych sygnałów świetlnych lub dźwiękowych", a:"art. 96 §1 KW", p:"mandat 500 zł" },
-        { t:"Rozpowszechnianie fałszywych alarmów", a:"art. 66 KW", p:"mandat 1500 zł lub areszt" },
-        { t:"Publiczne używanie słów nieprzyzwoitych", a:"art. 141 KW", p:"mandat 500 zł" },
-        { t:"Zakłócanie zgromadzenia lub manifestacji", a:"art. 52 KW", p:"mandat 500 zł" },
-      ]
-    },
+  <script>
+    const DATA = [
+      // WYKROCZENIA
+      {
+        id: "drogowe",
+        icon: "🚗",
+        name: "Wykroczenia drogowe",
+        desc: "Najczęstsze naruszenia w ruchu drogowym: prędkość, pierwszeństwo, światła, dokumenty, stan techniczny itd.",
+        items: [
+          { t:"Przekroczenie dozwolonej prędkości", a:"art. 92a KW", p:"mandat od 50 do 2500 zł, 1–15 pkt" },
+          { t:"Jazda bez prawa jazdy", a:"Art. 94 §1 k.w.", p:"Grzywna do 5 000 zł + zakaz prowadzenia do 3 lat" },
+          { t:"Brak obowiązkowego ubezpieczenia OC pojazdu", a:"art. 95 ustawy o ubezpieczeniach obowiązkowych / UFG", p:"kara pieniężna od 1200 do 6000 zł (w zależności od długości okresu braku OC), odpowiedzialność za szkody wyrządzone osobom trzecim, możliwe zatrzymanie dowodu rejestracyjnego" },
+          { t:"Nieustąpienie pierwszeństwa przejazdu", a:"art. 86 §1 KW", p:"mandat 300–1500 zł, 6 pkt" },
+          { t:"Przejazd na czerwonym świetle", a:"art. 92 §1 KW", p:"mandat 500 zł, 6 pkt" },
+          { t:"Nieprawidłowe wyprzedzanie", a:"art. 86 §1 KW", p:"mandat 200–1000 zł, 8 pkt" },
+          { t:"Nieustąpienie pierwszeństwa pieszemu na przejściu", a:"art. 86 §1 KW", p:"mandat 1500 zł, 15 pkt" },
+          { t:"Korzystanie z telefonu podczas jazdy", a:"art. 97 KW", p:"mandat 500 zł, 12 pkt" },
+          { t:"Jazda bez zapiętych pasów bezpieczeństwa", a:"art. 97 KW", p:"mandat 100 zł, 5 pkt" },
+          { t:"Nieprawidłowe cofanie lub zawracanie", a:"art. 86 §1 KW", p:"mandat 200–300 zł, 6 pkt" },
+          { t:"Nieposiadanie przy sobie dokumentów (prawo jazdy, dowód rejestracyjny)", a:"art. 95 KW", p:"mandat 50 zł" },
+          { t:"Nieustąpienie pierwszeństwa pojazdowi uprzywilejowanemu", a:"art. 90 KW", p:"mandat 500 zł, 8 pkt" },
+          { t:"Spowodowanie kolizji drogowej", a:"art. 86 §1 KW", p:"mandat 1000 zł, 10 pkt" },
+          { t:"Nieprawidłowe parkowanie", a:"art. 97 KW", p:"mandat 100–300 zł" },
+          { t:"Zatrzymanie lub postój w miejscu niedozwolonym", a:"art. 97 KW", p:"mandat 100–300 zł" },
+          { t:"Niepodporządkowanie się poleceniom policjanta", a:"art. 92 §1 KW", p:"mandat 500 zł" },
+          { t:"Ucieczka z miejsca kolizji", a:"art. 92 §1 KW", p:"mandat 2000 zł lub zatrzymanie prawa jazdy" },
+          { t:"Jazda pojazdem niesprawnym technicznie", a:"art. 97 KW", p:"mandat 500 zł, możliwe zatrzymanie dowodu rejestracyjnego" },
+          { t:"Przewóz zbyt wielu pasażerów", a:"art. 97 KW", p:"mandat 300 zł, 5 pkt" },
+          { t:"Prowadzenie pojazdu z cofniętymi uprawnieniami", a:"art. 180a KK", p:"Kara ograniczenia wolności do lat 2." },
+          { t:"Ucieczka od kontroli przez osobę uprawnianą w ruchu drogowym", a:"art. 178b. KK", p:"Kara pozbawienia wolności od 3 miesięcy do lat 5" },
+          { t:"Prowadzenie pojazdu niedopuszczonego do ruchu (M.in. brak rejestracji)", a:"art. 94 § 2 KW", p:"Kara grzywny 1 500 zł lub skierowanie sprawy do sądu" },
+        ]
+      },
+      {
+        id: "porzadkowe",
+        icon: "🏠",
+        name: "Wykroczenia porządkowe i administracyjne",
+        desc: "Porządek, czystość, cisza nocna, sanitariat, zwierzęta, utrzymanie posesji.",
+        items: [
+          { t:"Zaśmiecanie miejsca publicznego", a:"art. 145 KW", p:"mandat 500 zł" },
+          { t:"Zakłócanie ciszy nocnej", a:"art. 51 §1 KW", p:"mandat 500 zł" },
+          { t:"Spożywanie alkoholu w miejscu publicznym", a:"art. 43¹ ustawy o wychowaniu w trzeźwości", p:"mandat 100 zł" },
+          { t:"Wyrzucanie śmieci poza wyznaczone miejsce", a:"art. 145 KW", p:"mandat 500 zł" },
+          { t:"Niszczenie zieleni miejskiej", a:"art. 144 KW", p:"mandat 500 zł" },
+          { t:"Wyprowadzanie psa bez smyczy lub kagańca", a:"art. 77 KW", p:"mandat 250 zł" },
+          { t:"Niewłaściwe utrzymanie posesji", a:"art. 117 §1 KW", p:"mandat 100–500 zł" },
+          { t:"Nieprzestrzeganie przepisów sanitarnych", a:"art. 116 §1 KW", p:"mandat 100–500 zł" },
+          { t:"Załatwianie potrzeb fizjologicznych w miejscu publicznym", a:"art. 145 KW", p:"mandat 500 zł" },
+        ]
+      },
+      {
+        id: "publiczne",
+        icon: "🧍‍♂️",
+        name: "Wykroczenia przeciwko bezpieczeństwu i porządkowi publicznemu",
+        desc: "Interwencje, tożsamość, porządek publiczny, fałszywe alarmy, wulgarność, bójki, wandalizm.",
+        items: [
+          { t:"Utrudnianie interwencji policji lub straży", a:"art. 65 KW", p:"mandat 500 zł" },
+          { t:"Odmowa okazania dokumentu tożsamości", a:"art. 65 §2 KW", p:"mandat 500 zł" },
+          { t:"Podszywanie się pod funkcjonariusza", a:"art. 61 §1 KW", p:"mandat 1000 zł lub areszt" },
+          { t:"Niepodporządkowanie się poleceniom służb", a:"art. 65 KW", p:"mandat 500 zł" },
+          { t:"Zakłócanie porządku publicznego", a:"art. 51 §1 KW", p:"mandat 500 zł" },
+          { t:"Udział w bójce lub pobiciu", a:"art. 158 KK", p:"kara aresztu lub więzienia" },
+          { t:"Drobne akty wandalizmu", a:"art. 124 KW", p:"mandat 500–1000 zł" },
+          { t:"Malowanie graffiti bez zgody właściciela", a:"art. 124 KW", p:"mandat 500 zł" },
+          { t:"Nieudzielenie pomocy ofierze wypadku", a:"art. 93 KW", p:"mandat 500 zł lub kara aresztu" },
+          { t:"Używanie nielegalnych sygnałów świetlnych lub dźwiękowych", a:"art. 96 §1 KW", p:"mandat 500 zł" },
+          { t:"Rozpowszechnianie fałszywych alarmów", a:"art. 66 KW", p:"mandat 1500 zł lub areszt" },
+          { t:"Publiczne używanie słów nieprzyzwoitych", a:"art. 141 KW", p:"mandat 500 zł" },
+          { t:"Zakłócanie zgromadzenia lub manifestacji", a:"art. 52 KW", p:"mandat 500 zł" },
+        ]
+      },
 
-    // PRZESTĘPSTWA (NOWE)
-    {
-      id: "prz_drogowe",
-      icon: "🚓",
-      name: "Przestępstwa drogowe",
-      desc: "Przestępstwa w ruchu drogowym (nietrzeźwość, narkotyki, wypadki, ucieczki).",
-      items: [
-        { t:"Prowadzenie pojazdu w stanie nietrzeźwości", a:"art. 178a KK", p:"kara pozbawienia wolności do 2 lat, zakaz prowadzenia pojazdów" },
-        { t:"Spowodowanie wypadku ze skutkiem śmiertelnym", a:"art. 177 §2 KK", p:"kara pozbawienia wolności 6 miesięcy – 8 lat" },
-        { t:"Ucieczka z miejsca wypadku", a:"art. 178 §1 KK", p:"kara pozbawienia wolności do 3 lat" },
-        { t:"Prowadzenie pojazdu pod wpływem narkotyków", a:"art. 178a §1 KK", p:"kara pozbawienia wolności do 2 lat, zakaz prowadzenia pojazdów" },
-      ]
-    },
-    {
-      id: "prz_mienie",
-      icon: "🏦",
-      name: "Przestępstwa przeciwko mieniu",
-      desc: "Kradzieże, włamania, rozboje, przywłaszczenia i oszustwa.",
-      items: [
-        { t:"Kradzież", a:"art. 278 KK", p:"kara pozbawienia wolności do 5 lat" },
-        { t:"Kradzież z włamaniem", a:"art. 279 KK", p:"kara pozbawienia wolności od 3 miesięcy do 5 lat" },
-        { t:"Rozbój", a:"art. 280 KK", p:"kara pozbawienia wolności od 2 do 12 lat" },
-        { t:"Przywłaszczenie", a:"art. 284 KK", p:"kara pozbawienia wolności do 3 lat" },
-        { t:"Oszustwo", a:"art. 286 KK", p:"kara pozbawienia wolności do 8 lat" },
-      ]
-    },
-    {
-      id: "prz_osoba",
-      icon: "🧍‍♂️",
-      name: "Przestępstwa przeciwko osobie",
-      desc: "Przemoc, groźby, narażenie życia/zdrowia, ciężkie skutki.",
-      items: [
-        { t:"Pobicie", a:"art. 158 KK", p:"kara pozbawienia wolności do 3 lat" },
-        { t:"Ciężkie uszkodzenie ciała", a:"art. 156 KK", p:"kara pozbawienia wolności od 6 miesięcy do 8 lat" },
-        { t:"Zabójstwo", a:"art. 148 KK", p:"kara pozbawienia wolności od 8 lat do dożywocia" },
-        { t:"Groźby karalne", a:"art. 190 KK", p:"kara pozbawienia wolności do 2 lat" },
-        { t:"Narażenie na bezpośrednie niebezpieczeństwo utraty życia lub zdrowia", a:"art. 160 KK", p:"kara pozbawienia wolności do 3 lat" },
-      ]
-    },
-    {
-      id: "prz_bezp",
-      icon: "🔫",
-      name: "Przestępstwa przeciwko bezpieczeństwu publicznemu",
-      desc: "Broń bez zezwolenia, utrudnianie czynności, porwania, czyny terrorystyczne.",
-      items: [
-        { t:"Posiadanie i używanie broni bez zezwolenia", a:"art. 263 KK", p:"kara pozbawienia wolności do 8 lat" },
-        { t:"Utrudnianie czynności służb publicznych", a:"art. 224 KK", p:"kara pozbawienia wolności do 3 lat" },
-        { t:"Porwanie", a:"art. 189 KK", p:"kara pozbawienia wolności od 3 do 15 lat" },
-        { t:"Terroryzm i groźba użycia przemocy", a:"art. 118 KK", p:"kara pozbawienia wolności od 5 do 15 lat" },
-      ]
-    },
-    {
-      id: "prz_gosp",
-      icon: "💰",
-      name: "Przestępstwa gospodarcze",
-      desc: "Dokumenty, pieniądze, korupcja, nadużycia i oszustwa podatkowe.",
-      items: [
-        { t:"Fałszowanie pieniędzy lub dokumentów", a:"art. 270 KK", p:"kara pozbawienia wolności do 5 lat" },
-        { t:"Korupcja i łapownictwo", a:"art. 228 KK", p:"kara pozbawienia wolności od 6 miesięcy do 8 lat" },
-        { t:"Podrabianie faktur i oszustwa podatkowe", a:"art. 271 KK", p:"kara pozbawienia wolności do 5 lat" },
-      ]
-    },
-  ];
-
-  const $ = (sel) => document.querySelector(sel);
-  const out = $("#out");
-  const q = $("#q");
-  const category = $("#category");
-  const sortSel = $("#sort");
-  const countEl = $("#count");
-  const catCountEl = $("#catCount");
-  const chipsEl = $("#chips");
-  const toast = $("#toast");
-
-  function showToast(msg){
-    toast.textContent = msg;
-    toast.classList.add("show");
-    clearTimeout(showToast._t);
-    showToast._t = setTimeout(()=>toast.classList.remove("show"), 1700);
-  }
-  function norm(s){ return (s||"").toString().toLowerCase().replace(/\s+/g," ").trim(); }
-  function isKKorUstawaOrKPK(article){
-    const a = norm(article);
-    return a.includes("kk") || a.includes("ustaw") || a.includes("kpk");
-  }
-
-  function init(){
-    for(const c of DATA){
-      const opt = document.createElement("option");
-      opt.value = c.id;
-      opt.textContent = `${c.icon} ${c.name}`;
-      category.appendChild(opt);
-    }
-
-    const quick = [
-      { label:"Prędkość", q:"92a" },
-      { label:"Nietrzeźwość", q:"178a" },
-      { label:"Kradzież", q:"278" },
-      { label:"Rozbój", q:"280" },
-      { label:"Groźby", q:"190" },
-      { label:"Broń", q:"263" },
-      { label:"Tożsamość", q:"65 §2" },
-      { label:"244 KPK", q:"244 kpk" },
-      { label:"Art. 15", q:"art. 15" },
+      // PRZESTĘPSTWA
+      {
+        id: "prz_drogowe",
+        icon: "🚓",
+        name: "Przestępstwa drogowe",
+        desc: "Przestępstwa w ruchu drogowym (nietrzeźwość, narkotyki, wypadki, ucieczki).",
+        items: [
+          { t:"Prowadzenie pojazdu w stanie nietrzeźwości", a:"art. 178a KK", p:"kara pozbawienia wolności do 2 lat, zakaz prowadzenia pojazdów" },
+          { t:"Spowodowanie wypadku ze skutkiem śmiertelnym", a:"art. 177 §2 KK", p:"kara pozbawienia wolności 6 miesięcy – 8 lat" },
+          { t:"Ucieczka z miejsca wypadku", a:"art. 178 §1 KK", p:"kara pozbawienia wolności do 3 lat" },
+          { t:"Prowadzenie pojazdu pod wpływem narkotyków", a:"art. 178a §1 KK", p:"kara pozbawienia wolności do 2 lat, zakaz prowadzenia pojazdów" },
+        ]
+      },
+      {
+        id: "prz_mienie",
+        icon: "🏦",
+        name: "Przestępstwa przeciwko mieniu",
+        desc: "Kradzieże, włamania, rozboje, przywłaszczenia i oszustwa.",
+        items: [
+          { t:"Kradzież", a:"art. 278 KK", p:"kara pozbawienia wolności do 5 lat" },
+          { t:"Kradzież z włamaniem", a:"art. 279 KK", p:"kara pozbawienia wolności od 3 miesięcy do 5 lat" },
+          { t:"Rozbój", a:"art. 280 KK", p:"kara pozbawienia wolności od 2 do 12 lat" },
+          { t:"Przywłaszczenie", a:"art. 284 KK", p:"kara pozbawienia wolności do 3 lat" },
+          { t:"Oszustwo", a:"art. 286 KK", p:"kara pozbawienia wolności do 8 lat" },
+        ]
+      },
+      {
+        id: "prz_osoba",
+        icon: "🧍‍♂️",
+        name: "Przestępstwa przeciwko osobie",
+        desc: "Przemoc, groźby, narażenie życia/zdrowia, ciężkie skutki.",
+        items: [
+          { t:"Pobicie", a:"art. 158 KK", p:"kara pozbawienia wolności do 3 lat" },
+          { t:"Ciężkie uszkodzenie ciała", a:"art. 156 KK", p:"kara pozbawienia wolności od 6 miesięcy do 8 lat" },
+          { t:"Zabójstwo", a:"art. 148 KK", p:"kara pozbawienia wolności od 8 lat do dożywocia" },
+          { t:"Groźby karalne", a:"art. 190 KK", p:"kara pozbawienia wolności do 2 lat" },
+          { t:"Narażenie na bezpośrednie niebezpieczeństwo utraty życia lub zdrowia", a:"art. 160 KK", p:"kara pozbawienia wolności do 3 lat" },
+        ]
+      },
+      {
+        id: "prz_bezp",
+        icon: "🔫",
+        name: "Przestępstwa przeciwko bezpieczeństwu publicznemu",
+        desc: "Broń bez zezwolenia, utrudnianie czynności, porwania, czyny terrorystyczne.",
+        items: [
+          { t:"Posiadanie i używanie broni bez zezwolenia", a:"art. 263 KK", p:"kara pozbawienia wolności do 8 lat" },
+          { t:"Utrudnianie czynności służb publicznych", a:"art. 224 KK", p:"kara pozbawienia wolności do 3 lat" },
+          { t:"Porwanie", a:"art. 189 KK", p:"kara pozbawienia wolności od 3 do 15 lat" },
+          { t:"Terroryzm i groźba użycia przemocy", a:"art. 118 KK", p:"kara pozbawienia wolności od 5 do 15 lat" },
+        ]
+      },
+      {
+        id: "prz_gosp",
+        icon: "💰",
+        name: "Przestępstwa gospodarcze",
+        desc: "Dokumenty, pieniądze, korupcja, nadużycia i oszustwa podatkowe.",
+        items: [
+          { t:"Fałszowanie pieniędzy lub dokumentów", a:"art. 270 KK", p:"kara pozbawienia wolności do 5 lat" },
+          { t:"Korupcja i łapownictwo", a:"art. 228 KK", p:"kara pozbawienia wolności od 6 miesięcy do 8 lat" },
+          { t:"Podrabianie faktur i oszustwa podatkowe", a:"art. 271 KK", p:"kara pozbawienia wolności do 5 lat" },
+        ]
+      },
     ];
 
-    quick.forEach(ch => {
-      const el = document.createElement("div");
-      el.className = "chip";
-      el.innerHTML = `<strong>${ch.label}</strong> <span class="mini">(${ch.q})</span>`;
-      el.addEventListener("click", ()=>{
-        q.value = ch.q;
-        render();
-        [...chipsEl.querySelectorAll(".chip")].forEach(x=>x.classList.remove("active"));
-        el.classList.add("active");
-        q.focus();
-      });
-      chipsEl.appendChild(el);
-    });
+    // ŚPB — Środki Przymusu Bezpośredniego (ściąga)
+    const SPB = [
+      {
+        title: "Wezwanie/polecenie + ostrzeżenie",
+        tag: "deeskalacja",
+        copy: "ŚPB — wezwanie/polecenie + ostrzeżenie: treść polecenia, reakcja osoby, dlaczego nieskuteczne/niemożliwe, podstawa eskalacji.",
+        bullets: [
+          "Jeśli możliwe: najpierw wyraźne polecenie i ostrzeżenie o użyciu ŚPB.",
+          "Komunikat krótki: co ma zrobić + konsekwencje + czas na reakcję (jeśli sytuacja pozwala).",
+          "Dokumentuj: treść polecenia, reakcję, powód eskalacji."
+        ]
+      },
+      {
+        title: "Chwyty obezwładniające / techniki transportowe",
+        tag: "fizyczne",
+        copy: "ŚPB — chwyty/transport: powód zastosowania, opór/zagrożenie, przebieg, czas, ewentualne obrażenia, kontrola stanu osoby.",
+        bullets: [
+          "Stosuj adekwatnie do oporu i zagrożenia (minimum konieczne).",
+          "Unikaj działań zwiększających ryzyko urazów; kontroluj oddech/stan osoby.",
+          "Dokumentuj: rodzaj oporu, zastosowaną technikę, czas i efekt."
+        ]
+      },
+      {
+        title: "Siła fizyczna (odpór, obalenie, przytrzymanie)",
+        tag: "fizyczne",
+        copy: "ŚPB — siła fizyczna: przesłanki, rodzaj oporu, dlaczego inne środki nie wystarczyły, czas trwania, skutki, udzielenie pomocy (jeśli potrzebne).",
+        bullets: [
+          "Używaj proporcjonalnie; przerywaj gdy cel osiągnięty.",
+          "Zabezpiecz miejsce i osoby postronne.",
+          "Dokumentuj: przesłanki, stopień oporu, czas, skutki."
+        ]
+      },
+      {
+        title: "Kajdanki",
+        tag: "ograniczenie",
+        copy: "ŚPB — kajdanki: przesłanki (ryzyko ucieczki/agresji/autoagresji), sposób założenia, kontrola dopasowania, czas użycia, kontrola stanu osoby.",
+        bullets: [
+          "Stosuj gdy istnieją przesłanki (bezpieczeństwo, ucieczka, opór).",
+          "Po założeniu: kontrola dopasowania i krążenia; nadzór osoby.",
+          "Dokumentuj: dlaczego, kiedy, na jak długo, reakcja osoby."
+        ]
+      },
+      {
+        title: "Pałka służbowa",
+        tag: "uderzeniowe",
+        copy: "ŚPB — pałka: realne zagrożenie, ostrzeżenie (jeśli możliwe), miejsca dopuszczalne, czas, efekt, udzielenie pomocy/wezwanie medyczne gdy potrzeba.",
+        bullets: [
+          "Rozważ tylko przy realnym zagrożeniu i braku skuteczności łagodniejszych środków.",
+          "Cel: przerwanie ataku/obezwładnienie; minimum konieczne.",
+          "Dokumentuj: zagrożenie, eskalację, sposób użycia, skutki."
+        ]
+      },
+      {
+        title: "Gaz / środki obezwładniające",
+        tag: "chemiczne",
+        copy: "ŚPB — gaz: warunki (wiatr, tłum), ostrzeżenie (jeśli możliwe), odległość, czas ekspozycji, dekontaminacja/pomoc.",
+        bullets: [
+          "Uważaj na osoby postronne i przestrzenie zamknięte.",
+          "Po użyciu: zapewnij przewietrzenie, płukanie, pomoc medyczną gdy trzeba.",
+          "Dokumentuj: powód, warunki, efekt, czynności po użyciu."
+        ]
+      },
+      {
+        title: "Taser / urządzenie obezwładniające (jeśli używane w jednostce)",
+        tag: "elektro",
+        copy: "ŚPB — taser: przesłanki, ostrzeżenie, dystans, liczba cykli, efekt, zabezpieczenie osoby, kontrola medyczna gdy wskazana.",
+        bullets: [
+          "Stosuj zgodnie z procedurą i tylko przy przesłankach.",
+          "Po użyciu: kontrola stanu osoby, zabezpieczenie, ewentualna pomoc.",
+          "Dokumentuj: liczba użyć, czas, efekt, dalsze czynności."
+        ]
+      },
+      {
+        title: "Kask ochronny / tarcza / sprzęt ochronny",
+        tag: "ochrona",
+        copy: "ŚPB — sprzęt ochronny: powód, rodzaj zagrożenia, zastosowanie w działaniach, wpływ na bezpieczeństwo i przebieg.",
+        bullets: [
+          "W działaniach zbiorowych — priorytetem jest ochrona i minimalizacja eskalacji.",
+          "Ustal role i komunikację w zespole.",
+          "Dokumentuj: powód użycia i przebieg działań."
+        ]
+      },
+      {
+        title: "Wodórka / inne środki specjalne (jeśli dotyczy RP/Twoich zasad)",
+        tag: "specjalne",
+        copy: "ŚPB — środki specjalne: podstawa i rozkaz/zgoda (jeśli wymagana), ostrzeżenia, przebieg, efekty, zabezpieczenie osób postronnych.",
+        bullets: [
+          "Stosuj wyłącznie zgodnie z zasadami serwera/procedurami.",
+          "Priorytet: bezpieczeństwo osób postronnych.",
+          "Dokumentuj: kto podjął decyzję, kiedy, dlaczego, efekt."
+        ]
+      }
+    ];
 
-    const saved = localStorage.getItem("policja_theme");
-    if(saved === "light") document.documentElement.setAttribute("data-theme","light");
+    const $ = (sel) => document.querySelector(sel);
+    const out = $("#out");
+    const q = $("#q");
+    const category = $("#category");
+    const sortSel = $("#sort");
+    const countEl = $("#count");
+    const catCountEl = $("#catCount");
+    const chipsEl = $("#chips");
+    const toast = $("#toast");
+    const favCountEl = $("#favCount");
 
-    $("#btnTheme").addEventListener("click", toggleTheme);
-    $("#btnPrint").addEventListener("click", ()=>window.print());
+    // ŚPB elements
+    const spbGrid = $("#spbGrid");
+    const spbCount = $("#spbCount");
 
-    q.addEventListener("input", render);
-    category.addEventListener("change", render);
-    sortSel.addEventListener("change", render);
+    // ⭐ Ulubione
+    const FAV_KEY = "policja_favs_v1";
+    let favOnly = false;
 
-    // kopiowanie w sekcji przepisów
-    document.querySelectorAll("#lawSection [data-copy]").forEach(btn=>{
-      btn.addEventListener("click", (e)=>{
-        const text = e.currentTarget.getAttribute("data-text") || "";
-        copyText(text);
-      });
-    });
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=>toast.classList.remove("show"), 1700);
+    }
 
-    render();
-  }
+    function norm(s){ return (s||"").toString().toLowerCase().replace(/\s+/g," ").trim(); }
 
-  function toggleTheme(){
-    const cur = document.documentElement.getAttribute("data-theme");
-    const next = cur === "light" ? "" : "light";
-    if(next) document.documentElement.setAttribute("data-theme", next);
-    else document.documentElement.removeAttribute("data-theme");
-    localStorage.setItem("policja_theme", next || "dark");
-  }
+    // (5) Normalizacja wyszukiwania: odporna na kropki/spacje/odmiany typu "Art. 178b. KK"
+    function normSearch(s){
+      const raw = (s || "").toString().toLowerCase();
+      // usuń znaki diakrytyczne (opcjonalnie, pomaga np. "kradziez" vs "kradzież")
+      const noDia = raw.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      // ujednolić separatory, kropki itp.
+      return noDia
+        .replace(/[\.,;:(){}\[\]"]/g, " ")
+        .replace(/[–—-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
 
-  function flatten(){
-    const list = [];
-    for(const c of DATA){
-      for(const it of c.items){
-        list.push({
-          catId: c.id,
-          catName: c.name,
-          catIcon: c.icon,
-          title: it.t,
-          article: it.a,
-          penalty: it.p
+    function isKKorUstawaOrKPK(article){
+      const a = normSearch(article);
+      return a.includes("kk") || a.includes("ustaw") || a.includes("kpk");
+    }
+
+    function itemKey(it){
+      return `${normSearch(it.title)}|${normSearch(it.article)}`;
+    }
+    function loadFavs(){
+      try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]")); }
+      catch { return new Set(); }
+    }
+    function saveFavs(set){
+      localStorage.setItem(FAV_KEY, JSON.stringify([...set]));
+    }
+    let favs = loadFavs();
+    function isFav(it){ return favs.has(itemKey(it)); }
+    function toggleFav(it){
+      const k = itemKey(it);
+      if(favs.has(k)) favs.delete(k);
+      else favs.add(k);
+      saveFavs(favs);
+    }
+
+    function init(){
+      for(const c of DATA){
+        const opt = document.createElement("option");
+        opt.value = c.id;
+        opt.textContent = `${c.icon} ${c.name}`;
+        category.appendChild(opt);
+      }
+
+      const quick = [
+        { label:"Prędkość", q:"92a" },
+        { label:"Nietrzeźwość", q:"178a" },
+        { label:"Kradzież", q:"278" },
+        { label:"Rozbój", q:"280" },
+        { label:"Groźby", q:"190" },
+        { label:"Broń", q:"263" },
+        { label:"Tożsamość", q:"65 §2" },
+        { label:"244 KPK", q:"244 kpk" },
+        { label:"Art. 15", q:"art. 15" },
+      ];
+
+      quick.forEach(ch => {
+        const el = document.createElement("div");
+        el.className = "chip";
+        el.innerHTML = `<strong>${ch.label}</strong> <span class="mini">(${ch.q})</span>`;
+        el.addEventListener("click", ()=>{
+          q.value = ch.q;
+          render();
+          [...chipsEl.querySelectorAll(".chip")].forEach(x=>x.classList.remove("active"));
+          el.classList.add("active");
+          q.focus();
         });
+        chipsEl.appendChild(el);
+      });
+
+      const saved = localStorage.getItem("policja_theme");
+      if(saved === "light") document.documentElement.setAttribute("data-theme","light");
+
+      $("#btnTheme").addEventListener("click", toggleTheme);
+      $("#btnPrint").addEventListener("click", ()=>window.print());
+
+      $("#btnFavs").addEventListener("click", ()=>{
+        favOnly = !favOnly;
+        showToast(favOnly ? "Tylko ulubione ⭐" : "Wszystkie wpisy");
+        render();
+      });
+
+      q.addEventListener("input", render);
+      category.addEventListener("change", render);
+      sortSel.addEventListener("change", render);
+
+      // kopiowanie w sekcji przepisów + definicje letalne/nieletalne
+      document.querySelectorAll("[data-copy]").forEach(btn=>{
+        btn.addEventListener("click", (e)=>{
+          const text = e.currentTarget.getAttribute("data-text") || "";
+          copyText(text);
+        });
+      });
+
+      renderSPB();
+      render();
+    }
+
+    function toggleTheme(){
+      const cur = document.documentElement.getAttribute("data-theme");
+      const next = cur === "light" ? "" : "light";
+      if(next) document.documentElement.setAttribute("data-theme", next);
+      else document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("policja_theme", next || "dark");
+    }
+
+    function flatten(){
+      const list = [];
+      for(const c of DATA){
+        for(const it of c.items){
+          const title = it.t;
+          const article = it.a;
+          const penalty = it.p;
+
+          // (5) precomputed search index
+          const hay = normSearch(`${title} ${article} ${penalty} ${c.name} ${c.id} ${c.icon}`);
+          const hayCompact = hay.replace(/\s+/g, "");
+
+          list.push({
+            catId: c.id,
+            catName: c.name,
+            catIcon: c.icon,
+            title,
+            article,
+            penalty,
+            _hay: hay,
+            _hay2: hayCompact
+          });
+        }
+      }
+      return list;
+    }
+
+    function applyFilters(items){
+      const qv = normSearch(q.value);
+      const qv2 = qv.replace(/\s+/g, "");
+      const cat = category.value;
+
+      let res = items.filter(x => (cat === "all" ? true : x.catId === cat));
+
+      if(favOnly){
+        res = res.filter(x => isFav(x));
+      }
+
+      if(qv){
+        res = res.filter(x => x._hay.includes(qv) || x._hay2.includes(qv2));
+      }
+
+      const s = sortSel.value;
+      if(s !== "default"){
+        const by = (k) => (a,b) => normSearch(a[k]).localeCompare(normSearch(b[k]), "pl");
+        if(s === "name_asc") res.sort(by("title"));
+        if(s === "name_desc") res.sort((a,b)=>by("title")(b,a));
+        if(s === "article_asc") res.sort(by("article"));
+        if(s === "article_desc") res.sort((a,b)=>by("article")(b,a));
+      }
+      return res;
+    }
+
+    function groupByCategory(items){
+      const map = new Map();
+      for(const c of DATA){ map.set(c.id, { ...c, items: [] }); }
+      for(const it of items){ map.get(it.catId).items.push(it); }
+      return [...map.values()].filter(c => c.items.length > 0);
+    }
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast("Skopiowano ✅");
+      }catch(e){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        showToast("Skopiowano ✅");
       }
     }
-    return list;
-  }
 
-  function applyFilters(items){
-    const qv = norm(q.value);
-    const cat = category.value;
-    let res = items.filter(x => (cat === "all" ? true : x.catId === cat));
+    function cardHTML(it){
+      const lawClass = isKKorUstawaOrKPK(it.article) ? "lawTag" : "";
+      const full = `${it.title} — ${it.article} — ${it.penalty}`;
+      const favClass = isFav(it) ? "active" : "";
+      const favLabel = isFav(it) ? "★" : "☆";
+      const favTitle = isFav(it) ? "Usuń z ulubionych" : "Dodaj do ulubionych";
 
-    if(qv){
-      res = res.filter(x => {
-        const hay = norm(`${x.title} ${x.article} ${x.penalty} ${x.catName}`);
-        return hay.includes(qv);
-      });
-    }
-
-    const s = sortSel.value;
-    if(s !== "default"){
-      const by = (k) => (a,b) => norm(a[k]).localeCompare(norm(b[k]), "pl");
-      if(s === "name_asc") res.sort(by("title"));
-      if(s === "name_desc") res.sort((a,b)=>by("title")(b,a));
-      if(s === "article_asc") res.sort(by("article"));
-      if(s === "article_desc") res.sort((a,b)=>by("article")(b,a));
-    }
-    return res;
-  }
-
-  function groupByCategory(items){
-    const map = new Map();
-    for(const c of DATA){ map.set(c.id, { ...c, items: [] }); }
-    for(const it of items){ map.get(it.catId).items.push(it); }
-    return [...map.values()].filter(c => c.items.length > 0);
-  }
-
-  async function copyText(text){
-    try{
-      await navigator.clipboard.writeText(text);
-      showToast("Skopiowano ✅");
-    }catch(e){
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
-      showToast("Skopiowano ✅");
-    }
-  }
-
-  function cardHTML(it){
-    const lawClass = isKKorUstawaOrKPK(it.article) ? "lawTag" : "";
-    const full = `${it.title} — ${it.article} — ${it.penalty}`;
-    return `
-      <div class="card">
-        <div class="row1">
-          <div>
-            <p class="offense">${escapeHtml(it.title)}</p>
-            <div class="meta">
-              <code class="${lawClass}">${escapeHtml(it.article)}</code>
+      return `
+        <div class="card">
+          <div class="row1">
+            <div>
+              <p class="offense">${escapeHtml(it.title)}</p>
+              <div class="meta">
+                <code class="${lawClass}">${escapeHtml(it.article)}</code>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="starBtn ${favClass}" data-fav="toggle" data-key="${escapeAttr(itemKey(it))}" title="${escapeAttr(favTitle)}">${favLabel}</button>
+              <button class="miniBtn" data-copy="article" data-text="${escapeAttr(it.article)}" title="Kopiuj artykuł">Kopiuj art.</button>
+              <button class="miniBtn" data-copy="full" data-text="${escapeAttr(full)}" title="Kopiuj cały wpis">Kopiuj wpis</button>
             </div>
           </div>
-          <div class="actions">
-            <button class="miniBtn" data-copy="article" data-text="${escapeAttr(it.article)}" title="Kopiuj artykuł">Kopiuj art.</button>
-            <button class="miniBtn" data-copy="full" data-text="${escapeAttr(full)}" title="Kopiuj cały wpis">Kopiuj wpis</button>
-          </div>
-        </div>
-        <p class="penalty">${escapeHtml(it.penalty)}</p>
-      </div>
-    `;
-  }
-
-  function render(){
-    const all = flatten();
-    const filtered = applyFilters(all);
-    const grouped = groupByCategory(filtered);
-
-    countEl.textContent = filtered.length.toString();
-    catCountEl.textContent = grouped.length.toString();
-    out.innerHTML = "";
-
-    for(const cat of grouped){
-      const det = document.createElement("details");
-      det.open = true;
-      det.innerHTML = `
-        <summary>
-          <div class="catTitle">
-            <div class="name">${cat.icon} ${escapeHtml(cat.name)}</div>
-            <div class="desc">${escapeHtml(cat.desc)}</div>
-          </div>
-          <div class="count">${cat.items.length} pozycji</div>
-        </summary>
-        <div class="items">
-          ${cat.items.map(cardHTML).join("")}
-        </div>
-      `;
-      out.appendChild(det);
-    }
-
-    if(grouped.length === 0){
-      out.innerHTML = `
-        <div class="panel" style="margin-top:8px">
-          <b>Brak wyników.</b>
-          <div class="sub" style="margin-top:6px">Spróbuj innej frazy (np. <code>178a</code>, <code>278</code>, <code>244 kpk</code>).</div>
+          <p class="penalty">${escapeHtml(it.penalty)}</p>
         </div>
       `;
     }
 
-    out.querySelectorAll("[data-copy]").forEach(btn=>{
-      btn.addEventListener("click", (e)=>{
-        const text = e.currentTarget.getAttribute("data-text") || "";
-        copyText(text);
+    function render(){
+      // odśwież ulubione z localStorage na wszelki wypadek
+      favs = loadFavs();
+      favCountEl.textContent = favs.size.toString();
+
+      const all = flatten();
+      const filtered = applyFilters(all);
+      const grouped = groupByCategory(filtered);
+
+      countEl.textContent = filtered.length.toString();
+      catCountEl.textContent = grouped.length.toString();
+      out.innerHTML = "";
+
+      for(const cat of grouped){
+        const det = document.createElement("details");
+        det.open = true;
+        det.innerHTML = `
+          <summary>
+            <div class="catTitle">
+              <div class="name">${cat.icon} ${escapeHtml(cat.name)}</div>
+              <div class="desc">${escapeHtml(cat.desc)}</div>
+            </div>
+            <div class="count">${cat.items.length} pozycji</div>
+          </summary>
+          <div class="items">
+            ${cat.items.map(cardHTML).join("")}
+          </div>
+        `;
+        out.appendChild(det);
+      }
+
+      if(grouped.length === 0){
+        out.innerHTML = `
+          <div class="panel" style="margin-top:8px">
+            <b>Brak wyników.</b>
+            <div class="sub" style="margin-top:6px">Spróbuj innej frazy (np. <code>178a</code>, <code>278</code>, <code>244 kpk</code>). Albo wyłącz filtr ulubionych ⭐.</div>
+          </div>
+        `;
+      }
+
+      // kopiowanie
+      out.querySelectorAll("[data-copy]").forEach(btn=>{
+        btn.addEventListener("click", (e)=>{
+          const text = e.currentTarget.getAttribute("data-text") || "";
+          copyText(text);
+        });
       });
-    });
-  }
 
-  function escapeHtml(str){
-    return (str||"").replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
-  }
-  function escapeAttr(str){
-    return escapeHtml(str).replace(/`/g, "&#96;");
-  }
+      // ⭐ obsługa ulubionych
+      out.querySelectorAll("[data-fav='toggle']").forEach(btn=>{
+        btn.addEventListener("click", (e)=>{
+          const key = e.currentTarget.getAttribute("data-key") || "";
+          if(!key) return;
 
-  init();
-</script>
+          // znajdź item po kluczu (w przefiltrowanej liście / all)
+          const allNow = flatten();
+          const target = allNow.find(x => itemKey(x) === key);
+          if(!target) return;
+
+          toggleFav(target);
+          showToast(isFav(target) ? "Dodano do ulubionych ⭐" : "Usunięto z ulubionych");
+          render();
+        });
+      });
+    }
+
+    function renderSPB(){
+      if(!spbGrid || !spbCount) return;
+
+      spbCount.textContent = `${SPB.length} środków`;
+      spbGrid.innerHTML = SPB.map((s) => {
+        const tag = s.tag ? `<code class="lawTag">${escapeHtml(s.tag)}</code>` : "";
+        const bullets = (s.bullets || []).map(b => `<li>${escapeHtml(b)}</li>`).join("");
+        const copyTextVal = s.copy || `ŚPB — ${s.title}`;
+        return `
+          <div class="lawCard">
+            <div class="top">
+              <div>
+                <h3>${escapeHtml(s.title)}</h3>
+                <div class="meta">${tag}</div>
+              </div>
+              <div class="actions">
+                <button class="miniBtn" data-copy="spb" data-text="${escapeAttr(copyTextVal)}">Kopiuj</button>
+              </div>
+            </div>
+            <ul>${bullets}</ul>
+          </div>
+        `;
+      }).join("");
+
+      spbGrid.querySelectorAll("[data-copy='spb']").forEach(btn=>{
+        btn.addEventListener("click", (e)=>{
+          const text = e.currentTarget.getAttribute("data-text") || "";
+          copyText(text);
+        });
+      });
+    }
+
+    function escapeHtml(str){
+      return (str||"").replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+    }
+    function escapeAttr(str){
+      return escapeHtml(str).replace(/`/g, "&#96;");
+    }
+
+    init();
+  </script>
 </body>
 </html>
-
